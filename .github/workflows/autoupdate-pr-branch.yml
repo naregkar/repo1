@@ -17,9 +17,10 @@ jobs:
         run: echo "PR_Branch_Name=${{ github.head_ref }}" >> $GITHUB_ENV
              
       - name: Merge To Release
-        uses: devmasx/merge-branch@v1.3.1
-        with:
-          type: now
-          from_branch: master
-          target_branch: $PR_Branch_Name
-          github_token: ${{ github.token }}
+        run:  echo 'branch is:' $PR_Branch_Name
+        #uses: devmasx/merge-branch@v1.3.1
+        #with:
+          #type: now
+          #from_branch: master
+          #target_branch: $PR_Branch_Name
+          #github_token: ${{ github.token }}
