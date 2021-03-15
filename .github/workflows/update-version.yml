@@ -36,5 +36,6 @@ jobs:
               cat version
               
               git add version
-              git commit -am "Updating the file version"
+              git diff-index --quiet HEAD || git commit -m 'Updating the file version from Jira Issue'
+              #git commit -am "Updating the file version"
               git push
