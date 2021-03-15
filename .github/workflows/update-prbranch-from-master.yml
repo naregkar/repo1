@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: chinthakagodawita/autoupdate@v0.1.4
         env:
-          GITHUB_TOKEN: "${{ secrets.ADMIN_TOKEN }}"
+          GITHUB_TOKEN: ${{ github.token }}
           DRY_RUN: "false"
           MERGE_MSG: "Branch was auto-updated."
           RETRY_COUNT: "3"
