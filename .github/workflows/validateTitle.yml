@@ -23,15 +23,9 @@ jobs:
                 
                 echo $restApiPRTitle
                 
-                #parsedTitle="${restApiPRTitle%\"}"
-                #parsedTitle="${parsedTitle#\"}"
-                #echo $temp
-                
-                #echo title is: $parsedTitle somethingelse
-                
-                #if [[ $parsedTitle =~ ^\[DT-[0-9]+\] ]]; then
-                #  echo 'correct format'
-                #else
-                #  echo 'wrong format'
-                #  exit 1
-                #fi
+                if [[ $restApiPRTitle =~ ^\[DT-[0-9]+\] ]]; then
+                  echo 'correct format'
+                else
+                  echo 'wrong format'
+                  exit 1
+                fi
