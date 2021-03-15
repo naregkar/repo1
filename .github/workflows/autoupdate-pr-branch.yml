@@ -1,0 +1,25 @@
+name: AutoUpdatePrBranch
+ 
+on:
+  pull_request:
+    branches:
+      - master 
+
+jobs:
+
+  AutoUpdate-PrBranch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@master
+      
+      - name: Extract branch name
+        run: echo "PR_Branch_Name=${{ github.head_ref }}" >> $GITHUB_ENV
+             
+      - name: Merge To Release
+        uses: devmasx/merge-branch@v1.3.1
+        with:
+          type: now
+          from_branch: master
+          target_branch: $PR_Branch_Name
+          github_token: ${{ github.token }}
