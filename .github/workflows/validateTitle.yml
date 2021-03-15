@@ -8,8 +8,7 @@ on:
 env:
   GITHUB_PR_NUMBER: ${{github.event.pull_request.number}}
   
-  
-  jobs:
+jobs:
   validatePR:
     runs-on: ubuntu-latest
     
@@ -17,21 +16,22 @@ env:
       - name: Validate PR Title
         run:  |
                 echo PR Numer is: $GITHUB_PR_NUMBER
-                #echo 'PR Title is:' ${{ github.event.pull_request.title }}
                 
                 restApiPRTitle=$(curl \
                                       -H "Accept: application/vnd.github.v3+json" \
                                       https://api.github.com/repos/naregkar/testAutoMerge/pulls/$GITHUB_PR_NUMBER | jq '.title')
                 
-                parsedTitle="${restApiPRTitle%\"}"
-                parsedTitle="${parsedTitle#\"}"
-                echo $temp
+                echo $restApiPRTitle
                 
-                echo title is: $parsedTitle somethingelse
+                #parsedTitle="${restApiPRTitle%\"}"
+                #parsedTitle="${parsedTitle#\"}"
+                #echo $temp
                 
-                if [[ $parsedTitle =~ ^\[DT-[0-9]+\] ]]; then
-                  echo 'correct format'
-                else
-                  echo 'wrong format'
-                  exit 1
-                fi
+                #echo title is: $parsedTitle somethingelse
+                
+                #if [[ $parsedTitle =~ ^\[DT-[0-9]+\] ]]; then
+                #  echo 'correct format'
+                #else
+                #  echo 'wrong format'
+                #  exit 1
+                #fi
