@@ -15,9 +15,15 @@ jobs:
               restApiGET=$(curl --request GET \
                   --url 'https://naregkar.atlassian.net/rest/api/3/issue/DT-1234/' \
                   --user 'nareg.karamanoukian@picsart.com:oBJTrxuI3qf0Do1MBpGbBE87' \
-                  --header 'Accept: application/json' | jq -r '.fields.fixVersions[].name');
-                  
-              echo $restApiGET
+                  --header 'Accept: application/json');
+              
+               echo $restApiGET
+               
+                #| jq -r '.fields.fixVersions[].name'
+              
+              
+              
+             
              
              
                   
