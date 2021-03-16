@@ -20,7 +20,7 @@ jobs:
         name: Early exit
         run: |
               echo 'hey'
-              exit 1
+              
               
       - id: s2
         if: steps.s1.conclusion == 'failure'
