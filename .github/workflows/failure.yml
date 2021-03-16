@@ -16,17 +16,13 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       
-      - id: s1
-        name: Early exit
+      - name: Early exit
         run: |
               echo 'hey'
-              echo '::set-output name=conclusion::failure'
+              exit 1
               
               
-      - id: s2
-        if: steps.s1.conclusion == 'failure'
-        run: echo 'failure'
-        
-      - id: s3
-        if: steps.s2.conclusion == 'success'
-        run: echo 'success'
+      - name: The job has failed
+        if: ${{ failure() }} 
+        run: |
+              echo 'failed'
