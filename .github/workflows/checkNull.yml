@@ -1,0 +1,24 @@
+name: checkNull
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  checkNull:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    steps:
+    
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: |
+              restApiGET=$(curl --request GET \
+                  --url 'https://naregkar.atlassian.net/rest/api/3/issue/DT-1234/' \
+                  --user 'nareg.karamanoukian@picsart.com:oBJTrxuI3qf0Do1MBpGbBE87' \
+                  --header 'Accept: application/json' | jq -r '.fields.fixVersions[].name');
+                  
+             echo $restApiGET
+             
+             
+                  
