@@ -20,6 +20,7 @@ jobs:
         name: Early exit
         run: |
               echo 'hey'
+              echo '::set-output name=conclusion::failure'
               
               
       - id: s2
