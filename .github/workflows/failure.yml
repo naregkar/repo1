@@ -86,11 +86,20 @@ jobs:
                       echo 'Matching PR and master versions.'
                     else
                       echo 'PR branch planned for a future release. Cannot merge.'
-                      exit 1
+                      echo "::set-output name=result::fail"
                     fi
 
 
                   else
-                    echo 'PR Title does not comply with the required pattern.'                  
-                    exit 1
+                    echo 'PR Title does not comply with the required pattern.'  
+                    echo "::set-output name=result::fail"
+                    #exit 1
                   fi
+                  
+        - name: Validate PR Title
+          run: |
+                echo ${{ steps.validatePRTitle.outputs.result }}
+                
+          
+
+ 
