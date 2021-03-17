@@ -99,6 +99,11 @@ jobs:
         - name: Validate PR Title
           run: |
                 echo ${{ steps.validatePRTitle.outputs.result }}
+                if [[ "${{ steps.validatePRTitle.outputs.result }}" == "fail" ]]; then
+                  exit 1
+                else
+                  echo 'success'
+                fi
                 
           
 
