@@ -40,12 +40,14 @@ jobs:
                     JiraId=${JiraId:1}
                     
                     echo $JiraId
+                    echo 'after jira id'
                     
                     restApiGET=$(curl --request GET \
                     --url 'https://naregkar.atlassian.net/rest/api/3/issue/$JiraId/' \
                     --user 'nareg.karamanoukian@picsart.com:oBJTrxuI3qf0Do1MBpGbBE87' \
                     --header 'Accept: application/json' | jq -r '.fields.fixVersions[].name');       
                     
+                    echo 'after curl'
                     
                     issue_fix_version=$restApiGET
                     echo 'issue_fix_version: ' $issue_fix_version
