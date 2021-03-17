@@ -71,7 +71,7 @@ jobs:
                     
                     line=$(head -n 1 version)
                     echo $line
-                    echo "pr_version=$(echo $line)" >> $GITHUB_ENV
+                    pr_version=$line
                     
                     contentMaster=$(curl \
                                  -H "Accept: application/vnd.github.v3+json" \
