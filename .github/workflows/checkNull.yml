@@ -21,7 +21,7 @@ jobs:
               echo 'hello'
 
               
-              numOne='71'
+              numTwo='71'
               
               if [[ "$GITHUB_PR_NUMBER" == "$numTwo" ]]; then
                 echo 'success'
