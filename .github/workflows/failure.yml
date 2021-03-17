@@ -38,6 +38,8 @@ jobs:
                     JiraId=${jira_IdUnparsed%]*}
                     JiraId=${jira_id:1}
                     
+                    echo 'Jira id is: ' $JiraId
+                    
                     restApiGET=$(curl --request GET \
                     --url 'https://naregkar.atlassian.net/rest/api/3/issue/$JiraId/' \
                     --user 'nareg.karamanoukian@picsart.com:oBJTrxuI3qf0Do1MBpGbBE87' \
@@ -45,7 +47,7 @@ jobs:
                     
                     
                     issue_fix_version=$restApiGET
-                    
+                    echo 'issue_fix_version: ' $issue_fix_version
                     
                     git config --global user.name "naregkar"
                     git config --global user.email "naregkar@gmail.com"
