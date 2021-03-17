@@ -37,7 +37,7 @@ jobs:
                     jira_IdUnparsed=$restApiPRTitle
                     echo $jira_IdUnparsed
                     JiraId=${jira_IdUnparsed%]*}
-                    JiraId=${jira_id:1}
+                    JiraId=${JiraId:1}
                     
                     echo 'Jira id is: ' $JiraId
                     
