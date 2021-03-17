@@ -19,18 +19,17 @@ jobs:
       - name: Run a one-line script
         run: |
               echo 'hello'
-              echo 'head ref:' ${{ github.head_ref }}
-              echo 'base ref:' ${{ github.base_ref }}
+
               
-              numOne='5'
-              numTwo='5'
+              numOne='71'
               
-              if [[ "$numOne" =~ "$numTwo" ]]; then
+              if [[ "$GITHUB_PR_NUMBER" == "$numTwo" ]]; then
                 echo 'success'
               else
                 echo 'failure'
                 exit 1
               fi
+          
               
               
               
