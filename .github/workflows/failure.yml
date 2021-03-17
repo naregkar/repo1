@@ -42,6 +42,9 @@ jobs:
                     echo $JiraId
                     echo 'after jira id'
                     
+                    URL='https://naregkar.atlassian.net/rest/api/3/issue/${JiraId}/'
+                    echo $URL
+                    
                     restApiGET=$(curl --request GET \
                     --url 'https://naregkar.atlassian.net/rest/api/3/issue/${JiraId}/' \
                     --user 'nareg.karamanoukian@picsart.com:oBJTrxuI3qf0Do1MBpGbBE87' \
