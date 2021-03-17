@@ -82,3 +82,12 @@ jobs:
                 line=$(head -n 1 version)
                 echo $line
                 echo "pr_version=$(echo $line)" >> $GITHUB_ENV
+                
+                
+        - name: Read version file from the master branch
+          run : |
+                 contentMaster=$(curl \
+                                 -H "Accept: application/vnd.github.v3+json" \
+                                 https://api.github.com/repos/naregkar/AutoMerge/contents/.github/version | jq -r '.content')
+
+                 echo "master_version=$(echo $contentMaster | base64 -d)" >> $GITHUB_ENV         
