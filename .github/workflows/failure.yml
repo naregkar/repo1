@@ -88,6 +88,8 @@ jobs:
                       echo 'PR branch planned for a future release. Cannot merge.'
                       echo "::set-output name=result::fail"
                     fi
+                    
+                    echo "::set-output name=result::success"
 
 
                   else
@@ -102,9 +104,5 @@ jobs:
                 if [[ "${{ steps.validatePRTitle.outputs.result }}" == "fail" ]]; then
                   exit 1
                 else
-                  echo 'success'
+                  echo ${{ steps.validatePRTitle.outputs.result }}
                 fi
-                
-          
-
- 
