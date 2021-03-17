@@ -39,7 +39,7 @@ jobs:
                     JiraId=${jira_IdUnparsed%]*}
                     JiraId=${JiraId:1}
                     
-                    echo 'Jira id is: ' $JiraId
+                    echo 'Jira:' $JiraId 'hey'
                     
                     restApiGET=$(curl --request GET \
                     --url 'https://naregkar.atlassian.net/rest/api/3/issue/$JiraId/' \
