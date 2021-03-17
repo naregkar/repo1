@@ -46,7 +46,7 @@ jobs:
                     echo $URL
                     
                     restApiGET=$(curl --request GET \
-                    --url 'https://naregkar.atlassian.net/rest/api/3/issue/${JiraId}/' \
+                    --url 'https://naregkar.atlassian.net/rest/api/3/issue/'$JiraId'/' \
                     --user 'nareg.karamanoukian@picsart.com:oBJTrxuI3qf0Do1MBpGbBE87' \
                     --header 'Accept: application/json' | jq -r '.fields.fixVersions[].name');       
                     
