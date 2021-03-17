@@ -90,8 +90,7 @@ jobs:
                     fi
                     
                     echo "::set-output name=result::success"
-
-
+                    exit 0
                   else
                     echo 'PR Title does not comply with the required pattern.'  
                     echo "::set-output name=result::fail"
