@@ -22,6 +22,16 @@ jobs:
               echo 'head ref:' ${{ github.head_ref }}
               echo 'base ref:' ${{ github.base_ref }}
               
+              numOne='5'
+              numTwo='5'
+              
+              if [[ "$num" =~ "$numTwo" ]]; then
+                echo 'success'
+              else
+                echo 'failure'
+                exit 1
+              fi
+              
               
               
              
