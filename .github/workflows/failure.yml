@@ -17,9 +17,8 @@ jobs:
         run: |
               echo 'hey'
               exit 1
-              
-              
-      - name: The job has failed
-        if: ${{ failure() }} 
-        run: |
-              echo 'failed'
+                        
+     # - name: The job has failed
+     #   if: ${{ failure() }} 
+     #   run: |
+     #         echo 'failed'
