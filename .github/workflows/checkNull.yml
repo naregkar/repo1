@@ -25,7 +25,7 @@ jobs:
               numOne='5'
               numTwo='5'
               
-              if [[ "$num" =~ "$numTwo" ]]; then
+              if [[ "$numOne" =~ "$numTwo" ]]; then
                 echo 'success'
               else
                 echo 'failure'
