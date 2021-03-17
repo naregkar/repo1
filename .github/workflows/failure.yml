@@ -91,17 +91,4 @@ jobs:
                                  https://api.github.com/repos/naregkar/repo1/contents/.github/version | jq -r '.content')
 
                  echo "master_version=$(echo $contentMaster | base64 -d)" >> $GITHUB_ENV
-                 
-                 
-        - name: Compare values and assess the mergeability based on the version files
-          run: |
-               echo 'pr version is:' $pr_version
-               echo 'master version is:' $master_version
-
-               if [[ "$pr_version" == "$master_version" ]]; then
-                 echo 'Matching PR and master versions.'
-               else
-                 echo 'PR branch planned for a future release. Cannot merge.'
-                 exit 1
-               fi
-
+                                 
