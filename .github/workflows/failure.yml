@@ -94,7 +94,7 @@ jobs:
                   else
                     echo 'PR Title does not comply with the required pattern.'  
                     echo "::set-output name=result::fail"
-                    #exit 1
+                    exit 1
                   fi
                   
         #- name: Validate PR Title
