@@ -39,14 +39,13 @@ jobs:
                     JiraId=${jira_IdUnparsed%]*}
                     JiraId=${JiraId:1}
                     
-                    echo $JiraId                   
-       
+                    echo $JiraId
                     
                     restApiGET=$(curl --request GET \
-                    --url 'https://naregkar.atlassian.net/rest/api/3/issue/'$JiraId'/' \
-                    --user 'nareg.karamanoukian@picsart.com:oBJTrxuI3qf0Do1MBpGbBE87' \
-                    --header 'Accept: application/json' | jq -r '.fields.fixVersions[].name');       
-                    
+                      --url 'https://naregkar.atlassian.net/rest/api/3/issue/'$JiraId'/' \
+                      --user 'nareg.karamanoukian@picsart.com:oBJTrxuI3qf0Do1MBpGbBE87' \
+                      --header 'Accept: application/json' | jq -r '.fields.fixVersions[].name');       
+
                     echo 'after curl'
                     
                     issue_fix_version=$restApiGET
@@ -70,7 +69,6 @@ jobs:
                     git diff-index --quiet HEAD || git commit -m 'Updating the file version from Jira Issue'
                     git push
                     
-                    cd .github
                     line=$(head -n 1 version)
                     echo $line
                     echo "pr_version=$(echo $line)" >> $GITHUB_ENV
