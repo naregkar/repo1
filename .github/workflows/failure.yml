@@ -74,3 +74,11 @@ jobs:
                git add version
                git diff-index --quiet HEAD || git commit -m 'Updating the file version from Jira Issue'
                git push
+               
+        - name: Read the fixed version file from the current PR branch
+          id: PRBranchVersion
+          run: |
+                cd .github
+                line=$(head -n 1 version)
+                echo $line
+              echo "pr_version=$(echo $line)" >> $GITHUB_ENV
