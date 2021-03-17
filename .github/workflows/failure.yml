@@ -35,6 +35,7 @@ jobs:
                     echo 'PR Title is in correct format.'
 
                     jira_IdUnparsed=$restApiPRTitle
+                    echo $jira_IdUnparsed
                     JiraId=${jira_IdUnparsed%]*}
                     JiraId=${jira_id:1}
                     
