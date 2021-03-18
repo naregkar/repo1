@@ -52,26 +52,8 @@ jobs:
                   --user 'nareg.karamanoukian@picsart.com:oBJTrxuI3qf0Do1MBpGbBE87' \
                   --header 'Accept: application/json' | jq -r '.fields.fixVersions[].name');                   
               
-               echo "issue_fix_version=$restApiGET" >> $GITHUB_ENV
-      - name: Write fixed version from Jira to the .github/version file
-        run: |
-              git config --global user.name "naregkar"
-              git config --global user.email "naregkar@gmail.com"
-                          
-              git fetch
-              git checkout "${{ env.PR_Branch_Name }}"
-                           
-              cd .github
-              > version
-              
-              echo 'issue version:' $issue_fix_version
-              
-              echo $issue_fix_version >> version
-              cat version
-              
-              git add version
-              git diff-index --quiet HEAD || git commit -m 'Updating the file version from Jira Issue'
-              git push
+               echo "issue_fix_version=$restApiGET" >> $GITHUB_ENV               
+      
       - name: Read the fixed version file from the current PR branch
         id: PRBranchVersion
         run: |
@@ -98,6 +80,7 @@ jobs:
                 echo 'PR branch planned for a future release. Cannot merge.'
                 exit 1
               fi
+              
       - name: Read Jira Issue Status
         id: retrieveJiraStatus    
         run: |
