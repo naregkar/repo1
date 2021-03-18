@@ -63,16 +63,15 @@ jobs:
                 git checkout "${{ env.PR_Branch_Name }}"
 
                 cd .github
-                cat /dev/null > version
+                #cat /dev/null > version
 
-                echo 'issue version:' $issue_fix_version
+                #echo 'issue version:' $issue_fix_version
 
-                echo $issue_fix_version >> version
-                #cat version
+                #echo $issue_fix_version >> version
 
-                git add version
-                git diff-index --quiet HEAD || git commit -m 'Updating the file version from Jira Issue'
-                git push
+                #git add version
+                #git diff-index --quiet HEAD || git commit -m 'Updating the file version from Jira Issue'
+                #git push
 
  
       - name: Read the fixed version file from the current PR branch
