@@ -63,7 +63,7 @@ jobs:
                 git checkout "${{ env.PR_Branch_Name }}"
 
                 cd .github
-                #cat /dev/null > version
+                cat /dev/null > version
 
                 #echo 'issue version:' $issue_fix_version
 
