@@ -22,25 +22,17 @@ jobs:
                
       - name: Write fixed version from Jira to the .github/version file
         run: |
-                git config --global user.name "naregkar"
-                git config --global user.email "naregkar@gmail.com"
-
-                git fetch
-                git checkout "${{ env.PR_Branch_Name }}"
-
-                cd .github
-                cat /dev/null > version
-
-                echo 'Growth V2' >> version
-
-                git add version
-                git diff-index --quiet HEAD || git commit -m 'Updating the file version from Jira Issue'
-                #git push origin "${{ env.PR_Branch_Name }}"
+              
+              curl \
+                -X PUT \
+                -H "Accept: application/vnd.github.v3+json" \
+                https://api.github.com/repos/naregkar/repo1/contents/.github/version \
+                -d '{"message":"Updating version","content":"hello"}'
                 
-                if [[ "$(git push origin "${{ env.PR_Branch_Name }}")" == *"Done"* ]]
-                then
-                  echo "git push was successful!"
-                fi
+                #if [[ "$(git push origin "${{ env.PR_Branch_Name }}")" == *"Done"* ]]
+                #then
+                #  echo "git push was successful!"
+                #fi
         
 
 
