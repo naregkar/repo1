@@ -36,6 +36,11 @@ jobs:
                 git add version
                 git diff-index --quiet HEAD || git commit -m 'Updating the file version from Jira Issue'
                 #git push origin "${{ env.PR_Branch_Name }}"
+                
+                if [[ "$(git push origin "${{ env.PR_Branch_Name }}")" == *"Done"* ]]
+                then
+                  echo "git push was successful!"
+                fi
         
 
 
