@@ -43,16 +43,7 @@ jobs:
                   echo 'PR Title does not comply with the required pattern.'                  
                   exit 1
                 fi
-                     
-      
-      - name: Read version from Jira Issue
-        run : |
-               restApiGET=$(curl --request GET \
-                  --url 'https://naregkar.atlassian.net/rest/api/3/issue/${{ env.JiraId }}/' \
-                  --user 'nareg.karamanoukian@picsart.com:oBJTrxuI3qf0Do1MBpGbBE87' \
-                  --header 'Accept: application/json' | jq -r '.fields.fixVersions[].name');                   
-              
-               echo "issue_fix_version=$restApiGET" >> $GITHUB_ENV
+                           
                
       - name: Write fixed version from Jira to the .github/version file
         run: |
@@ -65,7 +56,7 @@ jobs:
                 cd .github
                 cat /dev/null > version
 
-                echo $issue_fix_version >> version
+                echo 'Growth V2' >> version
 
                 git add version
                 git diff-index --quiet HEAD || git commit -m 'Updating the file version from Jira Issue'
