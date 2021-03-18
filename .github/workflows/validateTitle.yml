@@ -25,7 +25,27 @@ jobs:
                 
                 if [[ $restApiPRTitle =~ ^\[DT-[0-9]+\] ]]; then
                   echo 'correct format'
+                  
+                  jira_IdUnparsed=$restApiPRTitle
+                  jira_id=${jira_IdUnparsed%]*}
+                  jira_id=${jira_id:1}
+                  echo "JiraId=$jira_id" >> $GITHUB_ENV               
                 else
                   echo 'wrong format'
                   exit 1
                 fi
+
+
+      - name: Assess result
+        run:  |
+                echo 'assess result'
+                
+                if [[ "${{ env.JiraId }}" == "DT-11" ]]; then
+                  echo 'match.'
+                else
+                  echo 'not matching'
+                  exit 1
+                fi
+                
+                
+                
