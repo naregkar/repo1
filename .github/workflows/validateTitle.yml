@@ -12,7 +12,7 @@ jobs:
   validatePR:
     runs-on: ubuntu-latest
     
-   steps:
+    steps:
       - uses: actions/checkout@v2
       
       - name: Extract branch name
@@ -25,7 +25,7 @@ jobs:
                 
                 restApiPRTitle=$(curl \
                                       -H "Accept: application/vnd.github.v3+json" \
-                                      https://api.github.com/repos/naregkar/AutoMerge/pulls/$GITHUB_PR_NUMBER | jq  -r '.title')
+                                      https://api.github.com/repos/naregkar/repo1/pulls/$GITHUB_PR_NUMBER | jq  -r '.title')
                 
                 echo $restApiPRTitle
                 
@@ -83,9 +83,10 @@ jobs:
         run : |
                contentMaster=$(curl \
                                -H "Accept: application/vnd.github.v3+json" \
-                               https://api.github.com/repos/naregkar/AutoMerge/contents/.github/version | jq -r '.content')
+                               https://api.github.com/repos/naregkar/repo1/contents/.github/version | jq -r '.content')
                                        
                echo "master_version=$(echo $contentMaster | base64 -d)" >> $GITHUB_ENV            
+     
       - name: Compare values and assess the mergeability based on the version files
         run: |
               echo 'pr version is:' $pr_version
@@ -97,6 +98,7 @@ jobs:
                 echo 'PR branch planned for a future release. Cannot merge.'
                 exit 1
               fi
+              
       - name: Read Jira Issue Status
         id: retrieveJiraStatus    
         run: |
@@ -109,17 +111,3 @@ jobs:
             
               echo "JiraIssue_Status=$restApiGETStatus" >> $GITHUB_ENV
 
-
-      - name: Assess result
-        run:  |
-                echo 'assess result'
-                
-                if [[ "${{ env.JiraId }}" == "DT-11" ]]; then
-                  echo 'match.'
-                else
-                  echo 'not matching'
-                  exit 1
-                fi
-                
-                
-                
