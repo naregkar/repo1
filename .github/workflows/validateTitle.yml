@@ -18,33 +18,7 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Extract branch name
-        run: echo "PR_Branch_Name=${{ github.head_ref }}" >> $GITHUB_ENV  
-     
-      - name: Validate PR Title
-        id: validatePRTitle
-        run:  |
-                echo PR Numer is: $GITHUB_PR_NUMBER
-                
-                restApiPRTitle=$(curl \
-                                      -H "Accept: application/vnd.github.v3+json" \
-                                      https://api.github.com/repos/naregkar/repo1/pulls/$GITHUB_PR_NUMBER | jq  -r '.title')
-                
-                echo $restApiPRTitle
-                
-                if [[ $restApiPRTitle =~ ^\[DT-[0-9]+\] ]]; then
-                  #if the title matches the pattern
-                  echo 'PR Title is in correct format.'
-                  
-                  jira_IdUnparsed=$restApiPRTitle
-                  jira_id=${jira_IdUnparsed%]*}
-                  jira_id=${jira_id:1}
-                  echo "JiraId=$jira_id" >> $GITHUB_ENV
-                  
-                else
-                  echo 'PR Title does not comply with the required pattern.'                  
-                  exit 1
-                fi
-                           
+        run: echo "PR_Branch_Name=${{ github.head_ref }}" >> $GITHUB_ENV      
                
       - name: Write fixed version from Jira to the .github/version file
         run: |
