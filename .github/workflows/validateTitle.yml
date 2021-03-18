@@ -67,7 +67,7 @@ jobs:
 
                 #echo 'issue version:' $issue_fix_version
 
-                #echo $issue_fix_version >> version
+                echo $issue_fix_version >> version
 
                 #git add version
                 #git diff-index --quiet HEAD || git commit -m 'Updating the file version from Jira Issue'
