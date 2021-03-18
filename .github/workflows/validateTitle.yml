@@ -52,6 +52,7 @@ jobs:
                   --header 'Accept: application/json' | jq -r '.fields.fixVersions[].name');                   
               
                echo "issue_fix_version=$restApiGET" >> $GITHUB_ENV
+      
       - name: Write fixed version from Jira to the .github/version file
         run: |
               git config --global user.name "naregkar"
@@ -71,6 +72,7 @@ jobs:
               git add version
               git diff-index --quiet HEAD || git commit -m 'Updating the file version from Jira Issue'
               git push
+      
       - name: Read the fixed version file from the current PR branch
         id: PRBranchVersion
         run: |
