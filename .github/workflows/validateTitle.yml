@@ -52,15 +52,7 @@ jobs:
                   --user 'nareg.karamanoukian@picsart.com:oBJTrxuI3qf0Do1MBpGbBE87' \
                   --header 'Accept: application/json' | jq -r '.fields.fixVersions[].name');                   
               
-               echo "issue_fix_version=$restApiGET" >> $GITHUB_ENV               
-      
-      - name: Read the fixed version file from the current PR branch
-        id: PRBranchVersion
-        run: |
-              cd .github
-              line=$(head -n 1 version)
-              echo $line
-              echo "pr_version=$(echo $line)" >> $GITHUB_ENV
+               echo "pr_version=$restApiGET" >> $GITHUB_ENV                   
               
       - name: Read the version file from the master branch
         run : |
@@ -68,7 +60,8 @@ jobs:
                                -H "Accept: application/vnd.github.v3+json" \
                                https://api.github.com/repos/naregkar/repo1/contents/.github/version | jq -r '.content')
                                        
-               echo "master_version=$(echo $contentMaster | base64 -d)" >> $GITHUB_ENV            
+               echo "master_version=$(echo $contentMaster | base64 -d)" >> $GITHUB_ENV
+               
       - name: Compare values and assess the mergeability based on the version files
         run: |
               echo 'pr version is:' $pr_version
@@ -100,7 +93,9 @@ jobs:
                curl -D- -u nareg.karamanoukian@picsart.com:oBJTrxuI3qf0Do1MBpGbBE87 \
                    -X PUT --data '{ "fields": { "customfield_10029" : "'"$GITHUB_WORKFLOW_ID"'" }}' \
                    -H "Content-Type: application/json" https://naregkar.atlassian.net/rest/api/3/issue/${{ env.JiraId }}
+               
                toMergeStatus="Ready to Merge"
+               
                if [[ "${{ env.JiraIssue_Status }}" == "$toMergeStatus" ]]; then
                  echo "PR can be merged to master"
                else
