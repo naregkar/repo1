@@ -71,7 +71,7 @@ jobs:
 
                 git add version
                 git diff-index --quiet HEAD || git commit -m 'Updating the file version from Jira Issue'
-                #git push
+                git push
 
  
       - name: Read the fixed version file from the current PR branch
