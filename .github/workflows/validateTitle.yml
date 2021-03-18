@@ -68,7 +68,7 @@ jobs:
                 echo $issue_fix_version >> version
 
                 git add version
-                #git diff-index --quiet HEAD || git commit -m 'Updating the file version from Jira Issue'
+                git diff-index --quiet HEAD || git commit -m 'Updating the file version from Jira Issue'
                 #git push
         
 
