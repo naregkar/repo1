@@ -13,7 +13,7 @@ jobs:
   checkNull:
     runs-on: ubuntu-latest
     
-    #if: github.ref != 'refs/heads/master'
+    if: github.ref != 'refs/heads/master'
     steps:
     
       - name: Validate PR Title
