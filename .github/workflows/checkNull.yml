@@ -2,7 +2,7 @@ name: checkNull
 
 on:
   pull_request:
-    types: [opened, edited, reopened] #, synchronize
+    types: [opened, edited, reopened, synchronize]
     branches:
       - master 
   push:
@@ -16,11 +16,11 @@ jobs:
   checkNull:
     runs-on: ubuntu-latest
     
-    if: github.ref != 'refs/heads/master'
+    #if: github.ref != 'refs/heads/master'
     steps:
     
       - name: Validate PR Title
-        id: validatePRTitle
+        if: github.event_name == 'pull_request'
         run:  |
                 echo PR Numer is: $GITHUB_PR_NUMBER
               
