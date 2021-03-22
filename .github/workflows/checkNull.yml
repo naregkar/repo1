@@ -22,7 +22,7 @@ jobs:
       - name: Some Echo
         run: |
               echo 'Start of code execution'
-              echo 'event name:' github.event_name
+              echo 'event name:' ${{ github.event_name }}
     
       - name: Validate PR Title
         if: github.event_name == 'pull_request'
