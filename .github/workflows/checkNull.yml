@@ -23,6 +23,7 @@ jobs:
         run: |
               echo 'Start of code execution'
               echo 'event name:' ${{ github.event_name }}
+              echo 'action:' ${{ github.event.action }}
     
       - name: Validate PR Title
         if: github.event_name == 'pull_request'
