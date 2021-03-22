@@ -1,9 +1,9 @@
 name: checkNull
 
 on:
-  #push:
-  #  branches:
-  #    - master
+  push:
+    branches:
+      - master
   pull_request:
     types: [opened, edited, reopened, synchronize]
     branches:
