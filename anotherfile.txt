@@ -6,8 +6,7 @@ rr
 k
 fx
 d
-n
-c
+nf
 c
 f
 cd
