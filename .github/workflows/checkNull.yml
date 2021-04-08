@@ -18,12 +18,12 @@ jobs:
     steps:
     
       - name: Some echo for release
-        if: github.ref != 'refs/heads/release'
+        if: github.ref == 'refs/heads/release'
         run: |
               echo 'release branch'
     
       - name: Some echo for master
-        if: github.ref != 'refs/heads/master'
+        if: github.ref == 'refs/heads/master'
         run:  |
                 echo 'master branch'
               
