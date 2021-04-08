@@ -17,6 +17,10 @@ jobs:
     #if: github.ref != 'refs/heads/master'
     steps:
     
+      - name: echo ref
+        run: |
+                echo github.ref
+    
       - name: Some echo for release
         if: github.ref == 'refs/heads/release'
         run: |
