@@ -26,6 +26,18 @@ jobs:
           run:  |
                  echo 'master branch'
               
+              
+
+        - name: Read Issue Type from Jira
+          if: github.event_name == 'pull_request'
+          run : |
+                 restApiGET=$(curl --request GET \
+                    --url 'https://naregkar.atlassian.net/rest/api/3/issue/DT-41/' \
+                    --user 'nareg.karamanoukian@picsart.com:oBJTrxuI3qf0Do1MBpGbBE87' \
+                    --header 'Accept: application/json')
+                  
+              
+                 echo $restApiGET
           
               
             
