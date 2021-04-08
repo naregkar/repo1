@@ -38,6 +38,10 @@ jobs:
                   
               
                  echo $restApiGET
+                 
+                 val=$restApiGET | jq -r '.fields.issuetype.name'
+                 
+                 echo $val
           
               
             
