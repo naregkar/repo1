@@ -36,9 +36,8 @@ jobs:
                     --user 'nareg.karamanoukian@picsart.com:oBJTrxuI3qf0Do1MBpGbBE87' \
                     --header 'Accept: application/json')
                                    
-                 val=$restApiGET | jq -r '.fields.issuetype.name'
                  
-                 echo $val
+                 echo $restApiGET | jq -r '.fields.issuetype.name'
           
               
             
