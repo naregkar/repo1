@@ -19,7 +19,7 @@ jobs:
     
       - name: echo ref
         run: |
-                echo github.ref
+                echo '${{ github.base_ref }}'
     
       - name: Some echo for release
         if: github.ref == 'refs/heads/release'
