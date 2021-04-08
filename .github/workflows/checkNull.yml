@@ -14,7 +14,6 @@ jobs:
   checkNull:
     runs-on: ubuntu-latest
     
-    #if: github.ref != 'refs/heads/master'
     steps:
 
         - name: Some echo for release
