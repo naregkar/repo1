@@ -1,13 +1,11 @@
 name: checkNull
 
 on:
-  #push:
-  #  branches:
-  #    - master
-  pull_request:
-    #types: [opened, edited, reopened, synchronize]
-    #branches:
-    #  - master     
+    pull_request:
+        types: [opened, edited, reopened, synchronize]
+        branches: 
+          - master
+          - release
 env:
   GITHUB_PR_NUMBER: ${{github.event.pull_request.number}}
   GITHUB_WORKFLOW_ID: ${{github.run_id}}
@@ -19,16 +17,15 @@ jobs:
     #if: github.ref != 'refs/heads/master'
     steps:
     
-      - name: Some Echo
+      - name: Some echo for release
+        if: github.ref != 'refs/heads/release'
         run: |
-              echo 'Start of code execution'
-              echo 'event name:' ${{ github.event_name }}
-              echo 'action:' ${{ github.event.action }}
+              echo 'release branch'
     
-      - name: Validate PR Title
-        if: github.event_name == 'pull_request'
+      - name: Some echo for master
+        if: github.ref != 'refs/heads/master'
         run:  |
-                echo PR Numer is: $GITHUB_PR_NUMBER
+                echo 'master branch'
               
           
               
