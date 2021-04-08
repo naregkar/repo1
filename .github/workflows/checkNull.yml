@@ -35,10 +35,7 @@ jobs:
                     --url 'https://naregkar.atlassian.net/rest/api/3/issue/DT-41/' \
                     --user 'nareg.karamanoukian@picsart.com:oBJTrxuI3qf0Do1MBpGbBE87' \
                     --header 'Accept: application/json')
-                  
-              
-                 echo $restApiGET
-                 
+                                   
                  val=$restApiGET | jq -r '.fields.issuetype.name'
                  
                  echo $val
