@@ -15,19 +15,15 @@ jobs:
     runs-on: ubuntu-latest
     
     #if: github.ref != 'refs/heads/master'
-    steps:
-    
-      - name: echo ref
-        run: |
-                echo '${{ github.base_ref }}'
+    steps:     
     
       - name: Some echo for release
-        if: github.ref == 'refs/heads/release'
+        if: ${{ github.ref == 'ref/head/release' }}
         run: |
               echo 'release branch'
     
       - name: Some echo for master
-        if: github.ref == 'refs/heads/master'
+        if: ${{ github.ref == 'ref/head/master' }}
         run:  |
                 echo 'master branch'
               
