@@ -18,12 +18,12 @@ jobs:
     steps:     
     
       - name: Some echo for release
-        if: ${{ github.ref == 'ref/head/release' }}
+        if: ${{ github.event.pull_request.base.ref == 'release' }}
         run: |
               echo 'release branch'
     
       - name: Some echo for master
-        if: ${{ github.ref == 'ref/head/master' }}
+        if: ${{ github.event.pull_request.base.ref == 'master' }}
         run:  |
                 echo 'master branch'
               
