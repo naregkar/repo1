@@ -37,7 +37,7 @@ jobs:
                     --header 'Accept: application/json')
                                    
                  
-                 val=$(echo $restApiGET | jq -r '.fields.issuetype.name')
+                 val=$(echo $restApiGET | jq -r '.fields.status.name')
                  
                  echo $val
           
