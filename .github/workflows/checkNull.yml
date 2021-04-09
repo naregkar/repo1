@@ -32,14 +32,16 @@ jobs:
           if: github.event_name == 'pull_request'
           run : |
                  restApiGET=$(curl --request GET \
-                    --url 'https://naregkar.atlassian.net/rest/api/3/issue/DT-41/' \
+                    --url 'https://naregkar.atlassian.net/rest/api/3/issue/DT-47/' \
                     --user 'nareg.karamanoukian@picsart.com:oBJTrxuI3qf0Do1MBpGbBE87' \
                     --header 'Accept: application/json')
                                    
                  
-                 val=$(echo $restApiGET | jq -r '.fields.status.name')
+                 issueStatus=$(echo $restApiGET | jq -r '.fields.status.name')
+                 parentStatus=$(echo $restApiGET | jq -r '.fields.parent.fields.status.name')
                  
-                 echo $val
+                 echo 'issueStatus:' $issueStatus
+                 echo 'parentStatus:' $parentStatus
           
               
             
