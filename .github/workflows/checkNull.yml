@@ -31,7 +31,7 @@ jobs:
           if: github.event_name == 'pull_request'
           run : |
                  restApiGET=$(curl --request GET \
-                    --url 'https://naregkar.atlassian.net/rest/api/3/issue/DT-50/' \
+                    --url 'https://naregkar.atlassian.net/rest/api/3/issue/DT-56/' \
                     --user 'nareg.karamanoukian@picsart.com:oBJTrxuI3qf0Do1MBpGbBE87' \
                     --header 'Accept: application/json')
                                    
