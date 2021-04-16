@@ -5,7 +5,6 @@ on:
         types: [opened, edited, reopened, synchronize]
         branches: 
           - master
-          - release
 env:
   GITHUB_PR_NUMBER: ${{github.event.pull_request.number}}
   GITHUB_WORKFLOW_ID: ${{github.run_id}}
@@ -32,21 +31,19 @@ jobs:
           if: github.event_name == 'pull_request'
           run : |
                  restApiGET=$(curl --request GET \
-                    --url 'https://naregkar.atlassian.net/rest/api/3/issue/DT-47/' \
+                    --url 'https://naregkar.atlassian.net/rest/api/3/issue/DT-50/' \
                     --user 'nareg.karamanoukian@picsart.com:oBJTrxuI3qf0Do1MBpGbBE87' \
                     --header 'Accept: application/json')
                                    
                  
-                 issueStatus=$(echo $restApiGET | jq -r '.fields.status.name')
-                 parentStatus=$(echo $restApiGET | jq -r '.fields.parent.fields.status.name')
+                 issueType=$(echo $restApiGET | jq -r '.fields.issuetype.name')
                  
-                 echo 'issueStatus:' $issueStatus
-                 echo 'parentStatus:' $parentStatus
-          
-              
-            
-              
-             
-             
-             
-                  
+                 echo 'issueType:' $issueType
+                 
+                 if [[ "$jira_Issue_Type" == "Story" ]] || [[ "$jira_Issue_Type" == "Bug" ]] || [[ "$jira_Issue_Type" == "Task" ]]; then
+                    echo '1'
+                 elif [[ "$jira_Issue_Type" == "Sub-task" ]]; then
+                    echo '2'
+                 else
+                    echo '3'
+                 fi
