@@ -15,7 +15,7 @@ jobs:
     
     steps: 
                  
-        - name: Read the package.json file from the master branch
+        - name: Read the json file from the master branch
           run : |
                  contentMaster=$(curl \
                                -H "Accept: application/vnd.github.v3+json" \
