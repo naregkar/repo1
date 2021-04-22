@@ -31,19 +31,15 @@ jobs:
           if: github.event_name == 'pull_request'
           run : |
                  restApiGET=$(curl --request GET \
-                    --url 'https://naregkar.atlassian.net/rest/api/3/issue/DT-56/' \
+                    --url 'https://naregkar.atlassian.net/rest/api/3/issue/DT-11/' \
                     --user 'nareg.karamanoukian@picsart.com:oBJTrxuI3qf0Do1MBpGbBE87' \
                     --header 'Accept: application/json')
                                    
                  
-                 issueType=$(echo $restApiGET | jq -r '.fields.issuetype.name')
+                 labelArray=$(echo $restApiGET | jq -r jq '.fields.labels')
                  
-                 echo 'issueType:' $issueType
+                 echo 'labelArray:' $labelArray
                  
-                 if [[ "$issueType" == "Story" ]] || [[ "$issueType" == "Bug" ]] || [[ "$issueType" == "Task" ]]; then
-                    echo '1'
-                 elif [[ "$issueType" == "Sub-task" ]]; then
-                    echo '2'
-                 else
-                    echo '3'
+                 if [[ " ${labelArray[@]} " =~ "Showstopper" ]]; then
+                    echo 'label exists'
                  fi
