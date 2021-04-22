@@ -5,7 +5,6 @@ on:
         types: [opened, edited, reopened, synchronize]
         branches: 
           - master
-          - release
 env:
   GITHUB_PR_NUMBER: ${{github.event.pull_request.number}}
   GITHUB_WORKFLOW_ID: ${{github.run_id}}
@@ -26,11 +25,23 @@ jobs:
           run:  |
                  echo 'master branch'
               
-          
               
-            
-              
-             
-             
-             
-                  
+        - name: Read Issue Type from Jira
+          if: github.event_name == 'pull_request'
+          run : |
+                 restApiGET=$(curl --request GET \
+                    --url 'https://naregkar.atlassian.net/rest/api/3/issue/DT-11/' \
+                    --user 'nareg.karamanoukian@picsart.com:oBJTrxuI3qf0Do1MBpGbBE87' \
+                    --header 'Accept: application/json')
+                                   
+                 targetBranch=${{ github.event.pull_request.base.ref }}
+                 
+                 labelArray=$(echo $restApiGET | jq -r '.fields.labels')
+                 
+                 echo 'labelArray:' $labelArray
+                 
+                 if [[ " ${labelArray[@]} " =~ "Showstopper" &&  $targetBranch == "release" ]]; then
+                    echo 'label exists and correct target branch'
+                 else
+                    echo 'wrong'
+                 fi
