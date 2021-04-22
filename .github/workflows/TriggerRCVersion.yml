@@ -22,9 +22,9 @@ jobs:
                                https://api.github.com/repos/naregkar/repo1/contents/package.json?ref=master | jq -r '.content')
                  
                  echo $contentMaster
-                 #echo "MasterRCVersion=$(echo $contentMaster | base64 -d)" >> $GITHUB_ENV         
+                 echo "MasterRCVersion=$(echo $contentMaster | base64 -d)" >> $GITHUB_ENV         
                  
                  
         - name: Display Contents of RC
           run : |
-                 echo $MasterRCVersion"
+                 echo "$MasterRCVersion"
