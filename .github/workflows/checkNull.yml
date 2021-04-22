@@ -35,11 +35,14 @@ jobs:
                     --user 'nareg.karamanoukian@picsart.com:oBJTrxuI3qf0Do1MBpGbBE87' \
                     --header 'Accept: application/json')
                                    
+                 targetBranch=${{ github.event.pull_request.base.ref }}
                  
                  labelArray=$(echo $restApiGET | jq -r '.fields.labels')
                  
                  echo 'labelArray:' $labelArray
                  
-                 if [[ " ${labelArray[@]} " =~ "Showstopper" ]]; then
-                    echo 'label exists'
+                 if [[ " ${labelArray[@]} " =~ "Showstopper" &&  $targetBranch == "release" ]]; then
+                    echo 'label exists and correct target branch'
+                 else
+                    echo 'wrong'
                  fi
