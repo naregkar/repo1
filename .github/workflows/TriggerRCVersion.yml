@@ -1,22 +1,29 @@
 name: TriggerRCVersion
 
 on:
-    pull_request:
-        types: [opened, edited, reopened, synchronize]
-        branches: 
-          - master
+   push:
+     branches: 
+       - master
 env:
   GITHUB_PR_NUMBER: ${{github.event.pull_request.number}}
   GITHUB_WORKFLOW_ID: ${{github.run_id}}
+  GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}
   
 jobs:
   TriggerRCVersion:
     runs-on: ubuntu-latest
     
-    steps:
-
-        - name: Some echo for release
-          run: |
-                 echo 'release branch'
+    steps: 
+                 
+        - name: Read the package.json file from the master branch
+          run : |
+                 contentMaster=$(curl \
+                               -H "Accept: application/vnd.github.v3+json" \
+                               https://api.github.com/repos/naregkar/$GITHUB_REPOSITORY_NAME/contents/package.json | jq -r '.content')
+                                       
+                 echo "MasterRCVersion=$(echo $contentMaster | base64 -d)" >> $GITHUB_ENV         
                  
                  
+        - name: Display Contents of RC
+          run : |
+                 echo $MasterRCVersion"
