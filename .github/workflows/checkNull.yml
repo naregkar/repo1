@@ -36,7 +36,7 @@ jobs:
                     --header 'Accept: application/json')
                                    
                  
-                 labelArray=$(echo $restApiGET | jq -r jq '.fields.labels')
+                 labelArray=$(echo $restApiGET | jq -r '.fields.labels')
                  
                  echo 'labelArray:' $labelArray
                  
