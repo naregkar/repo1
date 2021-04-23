@@ -37,7 +37,7 @@ jobs:
                  
                  #echo $RCVersionMaster
                  
-                 echo 'nareg'
+                 echo 'nareg:' ${GITHUB_REF#refs/heads/}
                 
                  echo 'https://api.github.com/repos/naregkar/repo1/contents/package.json?ref='${{ env.PR_Branch_Name }}
                  
