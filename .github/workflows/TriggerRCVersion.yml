@@ -26,12 +26,14 @@ jobs:
                 
         - name: Read json file from the current branch
           run: |
-                contentMaster=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/naregkar/repo1/contents/package.json?ref="${{ github.head_ref }}" | jq -r '.content')
-                parsedJSON=$(echo "$contentMaster" | base64 -d)
+                 echo "pr branch: ${{ github.head_ref }}"
                  
-                RCVersionMaster=$(echo $parsedJSON |  jq -r '.dependencies."@pa/rc"')
+                 contentMaster=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/naregkar/repo1/contents/package.json?ref="${{ github.head_ref }}" | jq -r '.content')
+                 parsedJSON=$(echo "$contentMaster" | base64 -d)
                  
-                echo $RCVersionMaster
+                 RCVersionMaster=$(echo $parsedJSON |  jq -r '.dependencies."@pa/rc"')
+                 
+                 echo $RCVersionMaster
                 
                  
         - name: Dump GitHub context
