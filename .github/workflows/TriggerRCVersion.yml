@@ -15,16 +15,24 @@ jobs:
     
     steps: 
                  
-        - name: Read the json file from the master branch
+        - name: Read json file from the master branch
           run : |
                  contentMaster=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/naregkar/repo1/contents/package.json | jq -r '.content')
                  parsedJSON=$(echo "$contentMaster" | base64 -d)
                  
-                 RCVersion=$(echo $parsedJSON |  jq -r '.dependencies."@pa/rc"')
+                 RCVersionMaster=$(echo $parsedJSON |  jq -r '.dependencies."@pa/rc"')
                  
-                 echo $RCVersion
+                 echo $RCVersionMaster
                 
+        - name: Read json file from the current branch
+          run: |
+                contentMaster=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/naregkar/repo1/contents/package.json?ref=${{ github.head_ref }} | jq -r '.content')
+                parsedJSON=$(echo "$contentMaster" | base64 -d)
                  
+                RCVersionMaster=$(echo $parsedJSON |  jq -r '.dependencies."@pa/rc"')
+                 
+                echo $RCVersionMaster
+                
                  
         - name: Dump GitHub context
           env:
