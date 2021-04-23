@@ -20,7 +20,7 @@ jobs:
                  contentMaster=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/naregkar/repo1/contents/package.json | jq -r '.content')
                  parsedJSON=$(echo "$contentMaster" | base64 -d)
                  
-                 RCVersion=$(echo $parsedJSON |  jq -r '.dependencies')
+                 RCVersion=$(echo $parsedJSON |  jq -r '.dependencies."@pa/rc"')
                  
                  echo $RCVersion
                 
