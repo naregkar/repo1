@@ -17,7 +17,7 @@ jobs:
     
         - name: Extract branch name
           run: |
-                 echo "PR_Branch_Name=${{ github.head_ref }}" >> $GITHUB_ENV  
+                 echo "PR_Branch_Name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV  
                  
         - name: Read json file from the master branch
           run : |
@@ -30,16 +30,13 @@ jobs:
                 
         - name: Read json file from the current branch
           run: |
-                 #contentMaster=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/naregkar/repo1/contents/package.json?ref=${{ env.PR_Branch_Name }} | jq -r '.content')
-                 #parsedJSON=$(echo "$contentMaster" | base64 -d)
+                 contentBranch=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/naregkar/repo1/contents/package.json?ref=${{ env.PR_Branch_Name }} | jq -r '.content')
+                 parsedJSON=$(echo "$contentBranch" | base64 -d)
                  
-                 #RCVersionMaster=$(echo $parsedJSON |  jq -r '.dependencies."@pa/rc"')
+                 RCVersionBranch=$(echo $parsedJSON |  jq -r '.dependencies."@pa/rc"')
                  
-                 #echo $RCVersionMaster
-                 
-                 echo 'nareg:' ${GITHUB_REF#refs/heads/}
-                
-                 echo 'https://api.github.com/repos/naregkar/repo1/contents/package.json?ref='${{ env.PR_Branch_Name }}
+                 echo $RCVersionBranch
+
                  
         - name: Dump GitHub context
           env:
