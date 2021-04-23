@@ -18,7 +18,9 @@ jobs:
         - name: Read the json file from the master branch
           run : |
                  contentMaster=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/naregkar/repo1/contents/package.json | jq -r '.content')
-                 echo "$contentMaster" | base64 -d
+                 parsedJSON=$(echo "$contentMaster" | base64 -d)
+                 
+                 echo $parsedJSON
                  
                  
         - name: Display Contents of RC
