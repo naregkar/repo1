@@ -36,6 +36,8 @@ jobs:
                  #RCVersionMaster=$(echo $parsedJSON |  jq -r '.dependencies."@pa/rc"')
                  
                  #echo $RCVersionMaster
+                 
+                 echo 'nareg'
                 
                  echo 'https://api.github.com/repos/naregkar/repo1/contents/package.json?ref='${{ env.PR_Branch_Name }}
                  
