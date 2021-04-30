@@ -25,6 +25,7 @@ jobs:
                  parsedJSON=$(echo "$contentMaster" | base64 -d)
                  
                  RCVersionMaster=$(echo $parsedJSON |  jq -r '.dependencies."@pa/rc"')
+                 echo "RCVersionMaster=$RCVersionMaster" >> $GITHUB_ENV
                  
                  echo $RCVersionMaster
                 
@@ -34,6 +35,7 @@ jobs:
                  parsedJSON=$(echo "$contentBranch" | base64 -d)
                  
                  RCVersionBranch=$(echo $parsedJSON |  jq -r '.dependencies."@pa/rc"')
+                 echo "RCVersionBranch=$RCVersionBranch" >> $GITHUB_ENV 
                  
                  echo $RCVersionBranch
 
@@ -89,8 +91,8 @@ jobs:
 
                   }
                   
-                  RCVersionBranch="${{ env.RCVersionBranch }}"
-                  RCVersionMaster="${{ env.RCVersionMaster }}"
+                  RCVersionBranch=${{ env.RCVersionBranch }}
+                  RCVersionMaster=${{ env.RCVersionMaster }}
                   
                   echo 'RCVersionBranch:' $RCVersionBranch
                   echo 'RCVersionMaster:' $RCVersionMaster
