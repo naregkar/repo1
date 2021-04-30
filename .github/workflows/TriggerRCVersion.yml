@@ -89,8 +89,8 @@ jobs:
 
                   }
                   
-                  RCVersionBranch=${{ env.RCVersionBranch }}
-                  RCVersionMaster=${{ env.RCVersionMaster }}
+                  RCVersionBranch="${{ env.RCVersionBranch }}"
+                  RCVersionMaster="${{ env.RCVersionMaster }}"
                   
                   echo 'RCVersionBranch:' $RCVersionBranch
                   echo 'RCVersionMaster:' $RCVersionMaster
