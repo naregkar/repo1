@@ -25,17 +25,16 @@ jobs:
                   CompareMainPart() {
                   
                     sendNotification=5
-                    echo 'sendNotification before return is:' $sendNotification
+                    echo 'sendNotification before return is:' $sendNotification                   
                     
-                    return 5
-                    #echo $sendNotification
                   }
                   
                   var=100
                   
-                  returnResult=CompareMainPart $var
-                      
-                  if [[ $returnResult == 5 ]]; then
+                  CompareMainPart $var
+                  echo 'sendNotification:' $sendNotification
+                  
+                  if [[ $sendNotification == 5 ]]; then
                     echo 'it is 5!!!'
                   else
                     echo 'wronggg'
