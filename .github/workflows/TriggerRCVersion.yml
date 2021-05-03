@@ -146,36 +146,58 @@ jobs:
                       fi
                     fi
                   elif [[ $branchContainsHyphen == "true" ]] && [[ $masterContainsHyphen == "false" ]]; then
+                    #in case the branch contains a hyphen and the master is in x.y.z format
                     echo 'true branch/false master'
                     beforeHyphenRelease=${RCVersionBranch%%-*}
                     CompareMainPart $beforeHyphenRelease $RCVersionMaster
                     returnResult=$?
+                    
                     if [[ $returnResult == 0 ]]; then
-                      sendNotification=0
-                      echo 'no need to notify as master is greater:' $sendNotification
+                    
+                      afterHyphenRelease=${RCVersionBranch##*-}
+                      
+                      if [[ $afterHyphenRelease -gt 0 ]]; then
+                        sendNotification=1
+                        echo 'notify as branch is greater:' $sendNotification
+                      else
+                        sendNotification=0
+                        echo 'no need to notify as master is greater:' $sendNotification
+                      fi
                     else
                       sendNotification=1
                       echo 'notify as branch is greater:' $sendNotification
                     fi
                   elif [[ $branchContainsHyphen == "false" ]] && [[ $masterContainsHyphen == "true" ]]; then
-                    echo 'false branch/true master'
-                    beforeHyphenMaster=${RCVersionMaster%%-*}
+                      #in case the branch is in x.y.z format and the master contains a hyphen
+                      
+                      echo 'false branch/true master'
+                      beforeHyphenMaster=${RCVersionMaster%%-*}
                       CompareMainPart $RCVersionBranch $beforeHyphenMaster
                       returnResult=$?
+                      
                       if [[ $returnResult == 0 ]]; then
-                        sendNotification=0
-                        echo 'no need to notify as master is greater:' $sendNotification
+                        
+                        afterHyphenMaster=${RCVersionMaster##*-}
+                        
+                        if [[ $afterHyphenMaster -gt 0 ]]; then
+                          sendNotification=0
+                          echo 'do not notify as master is greater:' $sendNotification
+                        else
+                          sendNotification=0
+                          echo 'do not notify as master is greater:' $sendNotification
+                        fi
                       else
                         sendNotification=1
                         echo 'notify as branch is greater:' $sendNotification
                       fi
                     else
-                      echo 'false all'
+                      echo 'no hyphens in both branch and master'
                       CompareMainPart $RCVersionBranch $RCVersionMaster
                       
-                      #sendNotification=$?
-                      #echo 'sendNotification inside the if is:' $sendNotification
+                      sendNotification=$?
+                      echo 'sendNotification for no hyphens is:' $sendNotification
                     fi
+                    
                     echo 'before slack'
                     echo 'sendNotification before slack is:' $sendNotification
                     
