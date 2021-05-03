@@ -42,53 +42,63 @@ jobs:
         - name: Compare Versions
           run:  |
                   CompareMainPart() {
-
                     RCVersionBranch=$1
                     RCVersionMaster=$2
-
                     echo 'CompareMainPart - RCVersionBranch:' $RCVersionBranch
                     echo 'CompareMainPart - RCVersionMaster:' $RCVersionMaster
-
-                    echo $RCVersionMaster |cut -d'.' -f1 | read strMasterPart1
-                    echo $RCVersionMaster |cut -d'.' -f2 | read strMasterPart2
-                    echo $RCVersionMaster |cut -d'.' -f3 | read strMasterPart3
-
-                    echo $RCVersionBranch |cut -d'.' -f1 | read strBranchPart1
-                    echo $RCVersionBranch |cut -d'.' -f2 | read strBranchPart2
-                    echo $RCVersionBranch |cut -d'.' -f3 | read strBranchPart3
-
+                    majorBranch=`echo $RCVersionBranch | cut -d. -f1`
+                    minorBranch=`echo $RCVersionBranch | cut -d. -f2`
+                    revisionBranch=`echo $RCVersionBranch | cut -d. -f3`
+                    
+                    majorMaster=`echo $RCVersionMaster | cut -d. -f1`
+                    minorMaster=`echo $RCVersionMaster | cut -d. -f2`
+                    revisionMaster=`echo $RCVersionMaster | cut -d. -f3`
+                    
+                    echo 'majorBranch: ' $majorBranch
+                    echo 'minorBranch: ' $minorBranch
+                    echo 'revisionBranch: ' $revisionBranch
+                    
+                    echo 'majorMaster: ' $majorMaster
+                    echo 'minorMaster: ' $minorMaster
+                    echo 'revisionMaster: ' $revisionMaster
+                    
                     sendNotification=0
-
-                    if [[ "$strBranchPart1" -eq "$strMasterPart1" ]]; then
-
-                      if [[ "$strBranchPart2" -eq "$strMasterPart2" ]]; then
-
-                        if [[ "$strBranchPart3" -eq "$strMasterPart3" ]]; then
-                          sendNotification=0
+                    if [[ "$majorBranch" -eq "$majorMaster" ]]; then
+                      
+                        echo 'first'
+                      
+                        if [[ "$minorBranch" -eq "$minorMaster" ]]; then
+                            echo 'second'
+                            if [[ "$revisionBranch" -eq "$revisionMaster" ]]; then
+                                echo 'third'
+                                sendNotification=0
+                            else
+                                if [[ "$revisionBranch" -gt "$revisionMaster" ]]; then
+                                  sendNotification=1
+                                else
+                                  sendNotification=0
+                                fi		
+                            fi
                         else
-                          if [[ "$strBranchPart3" -gt "$strMasterPart3" ]]; then
+                          if [[ "$minorBranch" -gt "$minorMaster" ]]; then
+                            echo 'inside 1'
                             sendNotification=1
                           else
+                            echo 'inside 2'
                             sendNotification=0
                           fi		
-                        fi
-                      else
-                        if [[ "$strBranchPart2" -gt "$strMasterPart2" ]]; then
-                          sendNotification=1
-                        else
-                          sendNotification=0
-                        fi		
                       fi
                     else
-                      if [[ "$strBranchPart1" -gt "$strMasterPart1" ]]; then
+                      if [[ "$majorBranch" -gt "$majorMaster" ]]; then
                         sendNotification=1
                       else
                         sendNotification=0
                       fi		
-                    fi	
-
-                    return $sendNotification
-
+                    fi
+                    
+                    echo 'sendNotification before return is:' $sendNotification
+                    #return 1
+                    echo $sendNotification
                   }
                   
                   RCVersionBranch=${{ env.RCVersionBranch }}
@@ -99,31 +109,23 @@ jobs:
                   
                   branchContainsHyphen=false
                   masterContainsHyphen=false
-
                   if [[ $RCVersionBranch =~ "-" ]]; then
                     branchContainsHyphen=true
                   fi
-
                   if [[ $RCVersionMaster =~ "-" ]]; then
                     masterContainsHyphen=true
                   fi
-
                   if [[ $branchContainsHyphen == "true" ]] && [[ $masterContainsHyphen == "true" ]]; then
-
                     echo 'both have hyphens'
                     beforeHyphenRelease=${RCVersionBranch%%-*}
                     beforeHyphenMaster=${RCVersionMaster%%-*}
-
                     afterHyphenRelease=${RCVersionBranch##*-}
                     afterHyphenMaster=${RCVersionMaster##*-}
-
                     if [[ $beforeHyphenRelease == $beforeHyphenMaster ]]; then
-
                       if [[ $afterHyphenRelease == $afterHyphenMaster ]]; then
                         sendNotification=0
                         echo 'after dash are equal, same versions'
                       else
-
                         if [[ $afterHyphenRelease -gt $afterHyphenMaster ]]; then
                           sendNotification=1
                           echo 'notify as release after dash is greater: ' $sendNotification
@@ -134,9 +136,7 @@ jobs:
                       fi	
                     else
                       CompareMainPart $beforeHyphenRelease $beforeHyphenMaster
-
                       returnResult=$?
-
                       if [[ $returnResult == 0 ]]; then
                         sendNotification=0
                         echo 'no need to notify as master is greater:' $sendNotification
@@ -145,17 +145,11 @@ jobs:
                         echo 'notify as branch is greater:' $sendNotification
                       fi
                     fi
-
                   elif [[ $branchContainsHyphen == "true" ]] && [[ $masterContainsHyphen == "false" ]]; then
-
                     echo 'true branch/false master'
-
                     beforeHyphenRelease=${RCVersionBranch%%-*}
-
                     CompareMainPart $beforeHyphenRelease $RCVersionMaster
-
                     returnResult=$?
-
                     if [[ $returnResult == 0 ]]; then
                       sendNotification=0
                       echo 'no need to notify as master is greater:' $sendNotification
@@ -163,18 +157,11 @@ jobs:
                       sendNotification=1
                       echo 'notify as branch is greater:' $sendNotification
                     fi
-
-
                   elif [[ $branchContainsHyphen == "false" ]] && [[ $masterContainsHyphen == "true" ]]; then
-
                     echo 'false branch/true master'
-
                     beforeHyphenMaster=${RCVersionMaster%%-*}
-
                       CompareMainPart $RCVersionBranch $beforeHyphenMaster
-
                       returnResult=$?
-
                       if [[ $returnResult == 0 ]]; then
                         sendNotification=0
                         echo 'no need to notify as master is greater:' $sendNotification
@@ -182,20 +169,23 @@ jobs:
                         sendNotification=1
                         echo 'notify as branch is greater:' $sendNotification
                       fi
-
                     else
-
                       echo 'false all'
                       CompareMainPart $RCVersionBranch $RCVersionMaster
+                      
+                      #sendNotification=$?
+                      #echo 'sendNotification inside the if is:' $sendNotification
                     fi
-
+                    echo 'before slack'
+                    echo 'sendNotification before slack is:' $sendNotification
+                    
                     if [[ $sendNotification == 1 ]]; then
-                      echo 'SLACKKKKKKKK'
-                    fi	
+                       echo "SendNotificationToSlack=$sendNotification" >> $GITHUB_ENV 
+                    fi
         
         - name: Send Slack Notification
           uses: someimportantcompany/github-actions-slack-message@v1
-          if: success()
+          if: env.SendNotificationToSlack == 1
           with:
             webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
             text: NEW RC Version has been utilized
