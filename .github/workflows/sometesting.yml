@@ -33,8 +33,7 @@ jobs:
                   
                   var=100
                   
-                  CompareMainPart $var
-                  returnResult=$?
+                  returnResult=CompareMainPart $var
                       
                   if [[ $returnResult == 5 ]]; then
                     echo 'it is 5!!!'
