@@ -1,0 +1,46 @@
+name: somereturntest
+
+on:
+  push:
+    paths:
+      - 'package.json'
+env:
+  GITHUB_PR_NUMBER: ${{github.event.pull_request.number}}
+  GITHUB_WORKFLOW_ID: ${{github.run_id}}
+  GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}
+  
+jobs:
+  somereturntest:
+    runs-on: ubuntu-latest
+    
+    steps:
+    
+        - name: Extract branch name
+          run: |
+                 echo "PR_Branch_Name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV  
+                      
+
+        - name: Compare Versions
+          run:  |
+                  CompareMainPart() {
+                  
+                    sendNotification=5
+                    echo 'sendNotification before return is:' $sendNotification
+                    
+                    #return 1
+                    echo $sendNotification
+                  }
+                  
+                  var=100
+                  
+                  CompareMainPart $var
+                  returnResult=$?
+                      
+                  if [[ $returnResult == 5 ]]; then
+                    echo 'it is 5!!!'
+                  else
+                    echo 'wronggg'
+                  fi
+                  
+                  echo 'before slack'
+                    
