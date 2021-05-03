@@ -27,8 +27,8 @@ jobs:
                     sendNotification=5
                     echo 'sendNotification before return is:' $sendNotification
                     
-                    #return 1
-                    echo $sendNotification
+                    return 5
+                    #echo $sendNotification
                   }
                   
                   var=100
