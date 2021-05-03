@@ -193,8 +193,14 @@ jobs:
                     else
                       echo 'no hyphens in both branch and master'
                       CompareMainPart $RCVersionBranch $RCVersionMaster
+                      returnResult=$?
                       
-                      sendNotification=$?
+                      if [[ $returnResult == 1 ]]; then
+                        sendNotification=1
+                      else
+                        sendNotification=0
+                      fi
+                      
                       echo 'sendNotification for no hyphens is:' $sendNotification
                     fi
                     
