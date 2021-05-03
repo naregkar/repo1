@@ -192,8 +192,15 @@ jobs:
                     if [[ $sendNotification == 1 ]]; then
                       echo 'SLACKKKKKKKK'
                     fi	
-                  
-                 
+        
+        - name: Send Slack Notification
+          uses: someimportantcompany/github-actions-slack-message@v1
+          if: success()
+          with:
+            webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+            text: NEW RC Version has been utilized
+            color: success
+
         - name: Dump GitHub context
           env:
             GITHUB_CONTEXT: ${{ toJson(github) }}
