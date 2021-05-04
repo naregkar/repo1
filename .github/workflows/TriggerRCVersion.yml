@@ -106,6 +106,7 @@ jobs:
                     echo 'sendNotificationFunction before return is:' $sendNotificationFunction                    
                   }
                   
+                  #EXECUTION STARTS HERE
                   RCVersionBranch=${{ env.RCVersionBranch }}
                   RCVersionMaster=${{ env.RCVersionMaster }}
                   
@@ -167,7 +168,7 @@ jobs:
 
                         if [[ $afterHyphenRelease -gt 0 ]]; then
                           sendSlack=1
-                          echo 'notify as branch is greater:' $sendNotificationFunction
+                          echo 'notify as branch is greater'
                         else
                           sendSlack=0
                           echo 'no need to notify as master is greater:' $sendNotificationFunction
@@ -205,16 +206,12 @@ jobs:
                         else
                           sendSlack=1
                         fi
-
-                        echo 'sendNotificationFunction for no hyphens is:' $sendNotificationFunction
+                        
                     fi
                     
                     echo 'before slack'
-                    echo 'sendNotificationFunction before slack is:' $sendNotificationFunction
-                    
-                    if [[ $sendNotificationFunction == 1 ]]; then
-                       echo "SendNotificationToSlack=$sendNotificationFunction" >> $GITHUB_ENV 
-                    fi
+                    echo "SendNotificationToSlack=$sendSlack" >> $GITHUB_ENV 
+
         
         - name: Send Slack Notification
           if: ${{ env.Branch_Name  != 'master' && env.SendNotificationToSlack == 1 }}
