@@ -21,7 +21,7 @@ jobs:
                  echo github.ref
                  
         - name: Read json file from the master branch
-          if: ${{ env.Branch_Name  == 'master' }}
+          if: ${{ env.Branch_Name  != 'master' }}
           run : |
                  contentMaster=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/naregkar/repo1/contents/package.json | jq -r '.content')
                  parsedJSON=$(echo "$contentMaster" | base64 -d)
@@ -32,6 +32,7 @@ jobs:
                  echo $RCVersionMaster
                 
         - name: Read json file from the current branch
+          if: ${{ env.Branch_Name  != 'master' }}
           run: |
                  contentBranch=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/naregkar/repo1/contents/package.json?ref=${{ env.Branch_Name }} | jq -r '.content')
                  parsedJSON=$(echo "$contentBranch" | base64 -d)
@@ -42,6 +43,7 @@ jobs:
                  echo $RCVersionBranch
 
         - name: Compare Versions
+          if: ${{ env.Branch_Name  != 'master' }}
           run:  |
                   CompareMainPart() {
                   
@@ -215,14 +217,14 @@ jobs:
                     fi
         
         - name: Send Slack Notification
+          if: ${{ env.Branch_Name  != 'master' && env.SendNotificationToSlack == 1 }}
           uses: someimportantcompany/github-actions-slack-message@v1
-          if: env.SendNotificationToSlack == 1
           with:
             webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
             text: NEW RC Version has been utilized
             color: success
 
-        - name: Dump GitHub context
+        - name: Dump GitHub contex
           env:
             GITHUB_CONTEXT: ${{ toJson(github) }}
           run: echo "$GITHUB_CONTEXT"
