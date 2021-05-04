@@ -25,7 +25,7 @@
     "@PicsArtWeb/editor-lib": "^3.1.24",
     "@PicsArtWeb/pilibs": "12.16.48",
     "@datadog/browser-rum": "^1.18.1",
-    "@pa/rc": "10.25.0-5",
+    "@pa/rc": "10.25.1",
     "@reduxjs/toolkit": "^1.4.0",
     "@types/react-window": "^1.8.2",
     "@types/tinycolor2": "^1.4.2",
