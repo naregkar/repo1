@@ -21,7 +21,7 @@ jobs:
                  echo github.ref
                  
         - name: Read json file from the master branch
-          if: Branch_Name == 'master'
+          if: ${{ env.Branch_Name  == 'master' }}
           run : |
                  contentMaster=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/naregkar/repo1/contents/package.json | jq -r '.content')
                  parsedJSON=$(echo "$contentMaster" | base64 -d)
