@@ -17,9 +17,11 @@ jobs:
     
         - name: Extract branch name
           run: |
-                 echo "PR_Branch_Name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV  
+                 echo "Branch_Name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+                 echo github.ref
                  
         - name: Read json file from the master branch
+          if: Branch_Name == 'master'
           run : |
                  contentMaster=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/naregkar/repo1/contents/package.json | jq -r '.content')
                  parsedJSON=$(echo "$contentMaster" | base64 -d)
@@ -31,7 +33,7 @@ jobs:
                 
         - name: Read json file from the current branch
           run: |
-                 contentBranch=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/naregkar/repo1/contents/package.json?ref=${{ env.PR_Branch_Name }} | jq -r '.content')
+                 contentBranch=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/naregkar/repo1/contents/package.json?ref=${{ env.Branch_Name }} | jq -r '.content')
                  parsedJSON=$(echo "$contentBranch" | base64 -d)
                  
                  RCVersionBranch=$(echo $parsedJSON |  jq -r '.dependencies."@pa/rc"')
