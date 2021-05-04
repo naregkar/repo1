@@ -226,8 +226,3 @@ jobs:
             webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
             text: NEW RC Version has been utilized
             color: success
-
-        - name: Dump GitHub contex
-          env:
-            GITHUB_CONTEXT: ${{ toJson(github) }}
-          run: echo "$GITHUB_CONTEXT"
