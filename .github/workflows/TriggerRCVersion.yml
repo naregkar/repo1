@@ -128,9 +128,6 @@ jobs:
                       afterHyphenMaster=${RCVersionMaster##*-}
                       afterHyphenMaster=$(echo $afterHyphenMaster | bc)
                       
-                      echo 'afterHyphenRelease:' $afterHyphenRelease
-                      echo 'afterHyphenMaster:' $afterHyphenMaster
-
                       if [[ $beforeHyphenRelease == $beforeHyphenMaster ]]; then
                         if [[ $afterHyphenRelease == $afterHyphenMaster ]]; then
                           sendSlack=0
@@ -164,6 +161,7 @@ jobs:
                       if [[ $beforeHyphenRelease == $RCVersionMaster ]]; then
                           
                           afterHyphenRelease=${RCVersionBranch##*-}
+                          afterHyphenRelease=$(echo $afterHyphenRelease | bc)
 
                           if [[ $afterHyphenRelease -gt 0 ]]; then
                             sendSlack=1
@@ -189,6 +187,7 @@ jobs:
                         
                         if [[ $RCVersionBranch == $beforeHyphenMaster ]]; then
                             afterHyphenMaster=${RCVersionMaster##*-}
+                            afterHyphenMaster=$(echo $afterHyphenMaster | bc)
 
                             if [[ $afterHyphenMaster -gt 0 ]]; then
                               sendSlack=0
