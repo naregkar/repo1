@@ -46,8 +46,8 @@ jobs:
           if: ${{ env.Branch_Name  != 'master' }}
           run:  |
                   CompareMainPart() {
-                  #returns 0 if no Slack notification is needed
-                  #returns 1 if a Slack message should be notified
+                  #returns 0 if no Slack notification is needed to be sent
+                  #returns 1 if a Slack message should be sent
                   
                     RCVersionBranchFunction=$1
                     RCVersionMasterFunction=$2
