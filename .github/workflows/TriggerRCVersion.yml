@@ -219,7 +219,6 @@ jobs:
                         
                     fi
                     
-                    echo 'before slack'
                     echo "SendNotificationToSlack=$sendSlack" >> $GITHUB_ENV 
 
         
