@@ -227,5 +227,5 @@ jobs:
           uses: someimportantcompany/github-actions-slack-message@v1
           with:
             webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
-            text: NEW RC Version has been utilized
+            text: A new RC Version ${{ env.RCVersionBranch }} has been utilized in branch ${{ env.Branch_Name }}.
             color: success
