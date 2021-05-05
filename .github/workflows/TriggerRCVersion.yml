@@ -124,7 +124,12 @@ jobs:
                       beforeHyphenRelease=${RCVersionBranch%%-*}
                       beforeHyphenMaster=${RCVersionMaster%%-*}
                       afterHyphenRelease=${RCVersionBranch##*-}
+                      afterHyphenRelease=$(echo $afterHyphenRelease | bc)
                       afterHyphenMaster=${RCVersionMaster##*-}
+                      afterHyphenMaster=$(echo $afterHyphenMaster | bc)
+                      
+                      echo 'afterHyphenRelease:' $afterHyphenRelease
+                      echo 'afterHyphenMaster:' $afterHyphenMaster
 
                       if [[ $beforeHyphenRelease == $beforeHyphenMaster ]]; then
                         if [[ $afterHyphenRelease == $afterHyphenMaster ]]; then
