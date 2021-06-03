@@ -17,13 +17,13 @@ jobs:
         run: |
               echo 'not draft'
               
-       - name: Echo for draft
+      - name: Echo for draft
         if: github.event.pull_request.draft == true
         run: |
-              echo 'draft'
+               echo 'draft'
               
-       - name: Echo for draft
-         run: |
+      - name: Echo for draft
+        run: |
               echo 'all cases'       
               
               
