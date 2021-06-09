@@ -1,0 +1,18 @@
+name: CheckWhenTriggered
+
+on:
+  pull_request:
+    types: [edited]
+  pull_request_review:
+    types: [submitted]
+
+  
+jobs:
+  CheckWhenTriggered:
+    runs-on: ubuntu-latest
+    
+    steps:
+      
+      - name: Echo for not draft
+        run: |
+              echo 'some echo'
