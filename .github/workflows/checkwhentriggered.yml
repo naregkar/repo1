@@ -2,10 +2,9 @@ name: CheckWhenTriggered
 
 on:
   pull_request:
-    types: [edited]
-  push:
+    types: [opened, edited, reopened, synchronize]
+  push:  
 
-  
 jobs:
   CheckWhenTriggered:
     runs-on: ubuntu-latest
