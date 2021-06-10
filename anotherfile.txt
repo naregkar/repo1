@@ -8,6 +8,6 @@ fx
 d
 nf
 c
-c
+cv
 f
 cd
