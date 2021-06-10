@@ -3,7 +3,11 @@ name: CheckWhenTriggered
 on:
   pull_request:
     types: [opened, edited, reopened, synchronize]
-  push:  
+    branches:
+    - master
+  push:
+    branches:
+    - master
 
 jobs:
   CheckWhenTriggered:
