@@ -17,3 +17,4 @@ jobs:
       - name: Echo for not draft
         run: |
               echo 'success'
+              echo ${GITHUB_SHA}
