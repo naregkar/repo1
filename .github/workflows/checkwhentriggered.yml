@@ -2,10 +2,10 @@ name: CheckWhenTriggered
 
 on:
   pull_request:
-    types: [opened, edited, reopened]
+    types: [edited]
     branches:
     - master
-  push:
+  pull_request_review:
     branches:
     - master
 
