@@ -2,6 +2,7 @@ name: Triggers Once
 
 on:
   pull_request:
+    types: [edited]
     branches:
     - master
   push:
