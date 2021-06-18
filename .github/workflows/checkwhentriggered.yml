@@ -1,4 +1,4 @@
-name: Triggers Just Once
+name: Triggers Twice
 
 on:
   pull_request:
@@ -10,7 +10,7 @@ on:
     - master
 
 jobs:
-  TriggerOnce:
+  TriggerTwice:
     runs-on: ubuntu-latest
     steps:
       
