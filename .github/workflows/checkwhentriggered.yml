@@ -1,4 +1,4 @@
-name: CheckWhenTriggered
+name: Triggers Just Once
 
 on:
   pull_request:
@@ -10,11 +10,10 @@ on:
     - master
 
 jobs:
-  CheckWhenTriggered:
+  TriggerOnce:
     runs-on: ubuntu-latest
     steps:
       
-      - name: Echo for not draft
+      - name: Echo a line
         run: |
-              echo 'success'
-              echo ${GITHUB_SHA}
+              echo 'hello'
